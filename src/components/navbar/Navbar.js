@@ -3,6 +3,9 @@ import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 
+import ProfileMenuItem from './ProfileMenuItem';
+import useClassNames from '../../hooks/useClassNames';
+
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
   { name: 'Team', href: '#', current: false },
@@ -10,11 +13,9 @@ const navigation = [
   { name: 'Calendar', href: '#', current: false },
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
+const Navbar = () => {
+  const classNames = useClassNames();
 
-const NavBar = () => {
   return (
     <Disclosure as='nav' className='bg-gray-800'>
       {({ open }) => (
@@ -45,6 +46,7 @@ const NavBar = () => {
                     alt='Workflow'
                   />
                 </div>
+                {/* Desktop menu */}
                 <div className='hidden sm:block sm:ml-6'>
                   <div className='flex space-x-4'>
                     {navigation.map(item => (
@@ -59,7 +61,7 @@ const NavBar = () => {
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
-                        {item.name}
+                        {item.name} JETHRO
                       </a>
                     ))}
                   </div>
@@ -96,45 +98,9 @@ const NavBar = () => {
                     leaveTo='transform opacity-0 scale-95'
                   >
                     <Menu.Items className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href='#'
-                            className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}
-                          >
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href='#'
-                            className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href='#'
-                            className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}
-                          >
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
+                      {['Your Profile', 'Settings', 'Sign out'].map(menuItemText => (
+                        <ProfileMenuItem menuItemText={menuItemText} />
+                      ))}
                     </Menu.Items>
                   </Transition>
                 </Menu>
@@ -142,6 +108,7 @@ const NavBar = () => {
             </div>
           </div>
 
+          {/* Mobile menu */}
           <Disclosure.Panel className='sm:hidden'>
             <div className='px-2 pt-2 pb-3 space-y-1'>
               {navigation.map(item => (
@@ -168,4 +135,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Navbar;
