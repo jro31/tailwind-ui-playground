@@ -61,7 +61,7 @@ const Navbar = () => {
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
-                        {item.name} JETHRO
+                        {item.name}
                       </a>
                     ))}
                   </div>
