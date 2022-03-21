@@ -1,5 +1,7 @@
+import NavBar from './components/NavBar';
+
 const App = () => {
-  return <div className='text-7xl'>Hello World!</div>;
+  return <NavBar />;
 };
 
 export default App;
